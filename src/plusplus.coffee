@@ -32,7 +32,7 @@ module.exports = (robot) ->
     # from beginning of line
     ^
     # the thing being upvoted, which is any number of words and spaces
-    ([\s\w']*)
+    ([\s\w':]*)
     # the increment/decrement operator ++ or --
     ([-+]{2}|—)
     # optional reason for the plusplus
@@ -47,8 +47,8 @@ module.exports = (robot) ->
 
     # sanitize the name if specified
     if name?
-      # remove any whitespace, or leading @ signs, or trailing [,:]
-      name = name.trim().toLowerCase().replace(/(^@)|([,:]$)/g, '')
+      # remove any whitespace, or leading @ signs, or trailing commas
+      name = name.trim().toLowerCase().replace(/(^@)|(,$)/g, '')
 
     # use MRU if no name was specified
     else
