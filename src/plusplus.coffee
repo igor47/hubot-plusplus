@@ -43,13 +43,15 @@ module.exports = (robot) ->
     [_, name, operator, reason] = msg.match
     from = msg.message.user.name.toLowerCase()
     room = msg.message.room
-
-    # do some sanitizing
     reason = reason?.trim().toLowerCase()
-    name = (name.replace /(^\s*@)|([,:\s]*$)/g, "").trim().toLowerCase() if name
 
-    # check whether a name was specified. use MRU if not
-    unless name?
+    # sanitize the name if specified
+    if name?
+      # remove any whitespace, or leading @ signs, or trailing [,:]
+      name = name.trim().toLowerCase().replace(/(^@)|([,:]$)/g, '')
+
+    # use MRU if no name was specified
+    else
       [name, lastReason] = scoreKeeper.last(room)
       reason = lastReason if !reason? && lastReason?
 
