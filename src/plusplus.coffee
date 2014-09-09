@@ -46,7 +46,7 @@ module.exports = (robot) ->
     reason = reason?.trim().toLowerCase()
 
     # sanitize the name if specified
-    if name?
+    if name
       # remove any whitespace, or leading @ signs, or trailing commas
       name = name.trim().toLowerCase().replace(/(^@)|(,$)/g, '')
 
